@@ -1,0 +1,329 @@
+<!doctype html>
+<head>
+    <style>
+        :root {
+            --iwidth: 325px;
+            --clicksize: 200px;
+            --menuiconwidth: 50px;
+            --clickotherwidth: 33px;
+            --clickotherheight: 16px;
+            --clickiconpadding: 10px;
+            --screenwidth: 280px;
+            --screenheight: 190px;
+            --screenradius: 9px;
+            --titleheight: 15px;
+            --fontmargin: 5px;
+        }
+        html {
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10 and IE 11 */
+            user-select: none; /* Standard syntax */
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+            font-size: calc(var(--titleheight) - 2px);
+        }
+        #ipod {
+            height: 515px;
+            width: var(--iwidth);
+            background-color: #e6e6e6;
+            border-radius: 25px;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            box-shadow: black 0px 0px 1.5em inset;
+        }
+        #clickwheel {
+            border-radius: 100%;
+            background-color: #fefefe;
+            width: var(--clicksize);
+            height: var(--clicksize);
+            position: absolute;
+            bottom: calc((var(--iwidth) - var(--clicksize)) / 2);
+            display: flex;
+            justify-content: center;
+            border: 1px solid rgb(185, 185, 185);
+            /* padding: 5px; */
+        }
+        #menu {
+            height: 15px;
+            width: var(--menuiconwidth);
+            /* background-color: red; */
+            position: absolute;
+            top: var(--clickiconpadding);
+            background-image: url('media/icons/menu.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        #skip_bw {
+            height: var(--clickotherheight);
+            width: var(--clickotherwidth);
+            /* background-color: red; */
+            left: var(--clickiconpadding);
+            align-self: center;
+            position: absolute;
+            background-image: url('media/icons/back.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        #skip_fw {
+            height: var(--clickotherheight);
+            width: var(--clickotherwidth);
+            /* background-color: red; */
+            right: var(--clickiconpadding);
+            align-self: center;
+            position: absolute;
+            background-image: url('media/icons/forward.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        #pause {
+            height: var(--clickotherheight);
+            width: var(--clickotherwidth);
+            /* background-color: red; */
+            position: absolute;
+            bottom: var(--clickiconpadding);
+            background-image: url('media/icons/pause.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        #clickbutton {
+            align-self: center;
+            height: 70px;
+            aspect-ratio: 1/1;
+            border-radius: 100%;
+            box-shadow: rgb(191, 191, 191) 0px 1em 3em inset;
+            background: rgb(255, 255, 255);
+            border: 1px solid rgb(185, 185, 185);
+        }
+        #screen {
+            position: absolute;
+            background-color: black;
+            top: calc((var(--iwidth) - var(--screenwidth)) / 2);
+            width: var(--screenwidth);
+            height: var(--screenheight);
+            border-radius: var(--screenradius);
+            border: 3px solid black;
+            overflow: hidden
+            /* transition: ; */
+        }
+        #screencontents {
+            /* opacity: 0; */
+            width: 100%;
+            height: 100%;
+            transition: opacity 0.2s;
+            background-color: white;
+            display: flex;
+        }
+        #titlebar {
+            background: linear-gradient();
+            border-bottom: 1px solid #7995a3;
+            height: var(--titleheight);
+            width: 100%;
+            background: rgb(252,253,253);
+            background: linear-gradient(180deg, rgba(252,253,253,1) 0%, rgba(179,184,187,1) 100%);
+            font-size: calc(var(--titleheight) - 2px);
+            position: absolute;
+            z-index: 100;
+        }
+        #titletext {
+            margin: 0;
+            margin-left: var(--fontmargin);
+            width: fit-content;
+        }
+        #screenleft {
+            width: 50%;
+            height: 100%;
+            margin-top: var(--titleheight);
+        }
+        #screenright {
+            width: 50%;
+            height: 100%;
+            margin-left: auto;
+            background: linear-gradient(45deg, rgba(104,110,122,1) 0%, rgba(177,181,192,1) 100%);
+            box-shadow: inset 15px 0 14px -15px rgba(0,0,0,0.4);
+            z-index: 101;
+        }
+        .menuitem {
+            height: calc(var(--titleheight) * 1.65);
+            width: 100%;
+            /* background-color: #7995a3; */
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        .menuitem > p{
+            margin: 0;
+            margin-left: var(--fontmargin);
+        }
+        .menuitem.selected {
+            background: linear-gradient(0deg, rgba(52,123,182,1) 0%, rgba(60,183,254,1) 100%);
+            color: white;
+        }
+        .backgroundslide {
+            background-image: url('media/1000gecs.jpg') !important;
+            background-size: 175% !important;
+            background-repeat: no-repeat !important;
+            animation: backgroundslide 50s infinite !important;
+        }
+        @keyframes backgroundslide {
+            0% { background-position: 0% 100%; }
+            25% { background-position: 100% 0%; }
+            50% { background-position: 100% 100%; }
+            75% { background-position: 0% 0%; }
+            100% { background-position: 0% 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div id="ipod">
+        <div id="screen">
+            <div id="screencontents">
+                <div id="titlebar">
+                    <strong><p id="titletext">iPod</p></strong>
+                </div>
+                <div id="screenleft">
+                    <div class="menuitem selected"><p>Music</p></div>
+                    <div class="menuitem"><p>Extras</p></div>
+                    <div class="menuitem"><p>Settings</p></div>
+                </div>
+                <div id="screenright" class="">
+                    <!-- <div id="rightshadow"></div> -->
+                </div>
+            </div>
+        </div>
+        <div id="clickwheel">
+            <div id="clickbutton"></div>
+            <div id="menu"></div>
+            <div id="skip_fw"></div>
+            <div id="skip_bw"></div>
+            <div id="pause"></div>
+        </div>
+    </div>
+</body>
+<script>
+    var istate = false
+    var clickwheelheld = false
+    var clickwheelx = 0
+    var clickwheely = 0
+    var movupcounter= 0
+    var movdncounter= 0
+    var clickwheelsens = 80 // this number is subtracted from 100, so dont set it over that
+
+    document.getElementById('clickbutton').addEventListener('click', button_handler)
+    document.getElementById('menu').addEventListener('click', button_handler)
+    document.getElementById('skip_fw').addEventListener('click', button_handler)
+    document.getElementById('skip_bw').addEventListener('click', button_handler)
+    document.getElementById('pause').addEventListener('click', button_handler)
+    var clickwheel = document.getElementById('clickwheel')
+    document.addEventListener('mousemove', clickwheel_move)
+    document.addEventListener('mousedown', clickwheel_mousebutton)
+    document.addEventListener('mouseup', clickwheel_mousebutton)
+    document.addEventListener('pointerleave', clickwheel_mousebutton)
+    const clickwidth = clickwheel.offsetWidth
+    const clickheight = clickwheel.offsetHeight
+
+    var menuoptions = document.getElementById('screenleft').getElementsByClassName('menuitem')
+    console.log(menuoptions)
+    var menu_index = 0
+
+    function menu_down() {
+        if (menu_index+1 >= menuoptions.length) {return}
+        menuoptions[menu_index].classList.remove('selected')
+        menu_index++
+        menuoptions[menu_index].classList.add('selected')
+    }
+
+    function menu_up() {
+        if (menu_index-1 < 0) {return}
+        menuoptions[menu_index].classList.remove('selected')
+        menu_index--
+        menuoptions[menu_index].classList.add('selected')
+    }
+
+    function button_handler(event) {
+        const button = event.target.id
+        console.log(button)
+        if (!istate) { 
+            istate = !istate 
+            document.getElementById('screencontents').style.opacity = '100'
+        } else if (istate) {
+            istate = !istate 
+            document.getElementById('screencontents').style.opacity = '0'
+        }
+    }
+    function clickwheel_move(event) {
+        var rect = clickwheel.getBoundingClientRect();
+        if (clickwheelheld) { 
+            var x = Math.floor(event.clientX - rect.left)
+            var y = Math.floor(event.clientY - rect.top)
+            // console.log('X:'+x+', Y:'+y) 
+            // console.log('log X:'+clickwheelx+', log Y:'+clickwheely) 
+            
+            if (x > clickwidth/2) { 
+                // right side
+                if (y < clickheight/2) {
+                    // above half
+                    if (x > clickwheelx || y > clickwheely) {
+                        movdncounter++
+                    } else if (x < clickwheelx || y < clickwheely) {
+                        movupcounter++
+                    }
+                } else {
+                    // below half
+                    if (x < clickwheelx || y > clickwheely) {
+                        movdncounter++
+                    } else if (x > clickwheelx || y < clickwheely) {
+                        movupcounter++
+                    }
+                }
+
+            } else {
+                if (y < clickheight/2) {
+                    // above half
+                    if (x > clickwheelx || y < clickwheely) {
+                        movdncounter++
+                    } else if (x < clickwheelx || y > clickwheely) {
+                        movupcounter++
+                    }
+                } else {
+                    // below half
+                    if (x < clickwheelx || y > clickwheely) {
+                        movdncounter++
+                    } else if (x > clickwheelx || y < clickwheely) {
+                        movupcounter++
+                    }
+                }
+            }
+
+            clickwheelx = x
+            clickwheely = y
+            
+            if (movupcounter > 100 - clickwheelsens) {
+                movupcounter = 0
+                movdncounter = 0
+                menu_up()
+            } else if (movdncounter > 100 - clickwheelsens) {
+                movupcounter = 0
+                movdncounter = 0
+                menu_down()
+            }
+
+        }
+    }
+
+    function clickwheel_mousebutton(event) {
+        if (event.target == clickwheel) {
+            if (event.type == 'mousedown') { 
+                clickwheelheld = true 
+            }
+        } 
+        if (event.type == 'mouseup') { 
+            clickwheelheld = false
+        }
+    }
+</script>
