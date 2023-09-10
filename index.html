@@ -1,12 +1,13 @@
 <!doctype html>
 <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <style>
         :root {
             --iwidth: 325px;
             --clicksize: 200px;
-            --menuiconwidth: 50px;
-            --clickotherwidth: 33px;
-            --clickotherheight: 16px;
+            --menuiconwidth: 40px;
+            --clickotherwidth: 30px;
+            --clickotherheight: 13px;
             --clickiconpadding: 10px;
             --screenwidth: 280px;
             --screenheight: 190px;
@@ -22,6 +23,12 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
             font-size: calc(var(--titleheight) - 2px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        body, html {
+            height: 100%;
         }
         #ipod {
             height: 515px;
@@ -176,6 +183,16 @@
             50% { background-position: 100% 100%; }
             75% { background-position: 0% 0%; }
             100% { background-position: 0% 100%; }
+        }
+        @media (prefers-color-scheme: light) {
+            body {
+                background-color: white;
+            }
+        }
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: black;
+            }
         }
     </style>
 </head>
