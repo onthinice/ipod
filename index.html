@@ -296,9 +296,11 @@
             }
             #screen {
                     width: 100%;
+                    aspect-ratio: 4/3;
                     margin: 1rem 1rem 0px;
                     position: relative;
                     top: 0;
+                    height: calc(var(--screenheight) + 5vh);
                 }
             }
             #clickwheel {
@@ -348,7 +350,7 @@
     var clickwheely = 0
     var movupcounter= 0
     var movdncounter= 0
-    var clickwheelsens = 92 // this number is subtracted from 100, so dont set it over that | 92 should be good middle ground, anything lower than 50 is unusuable
+    var clickwheelsens = 94 // this number is subtracted from 100, so dont set it over that | 92 should be good middle ground, anything lower than 50 is unusuable
     var pausesleeptime = undefined
     // var pauseheld = false
 
@@ -465,8 +467,8 @@
                     else if (x < clickwheelx || y > clickwheely) { movupcounter++ }
                 } else {
                     // left bottom
-                    if (x < clickwheelx || y > clickwheely) { movdncounter++ } 
-                    else if (x > clickwheelx || y < clickwheely) { movupcounter++ }
+                    if (x < clickwheelx || y < clickwheely) { movdncounter++ } 
+                    else if (x > clickwheelx || y > clickwheely) { movupcounter++ }
                 }
             }
 
