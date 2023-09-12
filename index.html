@@ -6,7 +6,7 @@
             --iwidth: 325px;
             --clicksize: 200px;
             --menuiconwidth: 40px;
-            --clickotherwidth: 30px;
+            --clickotherwidth: 25px;
             --clickotherheight: 13px;
             --clickiconpadding: 10px;
             --screenwidth: 280px;
@@ -14,6 +14,7 @@
             --screenradius: 9px;
             --titleheight: 15px;
             --fontmargin: 5px;
+            --cbcolour: rgb(255, 255, 255);
         }
         html {
             -webkit-user-select: none; /* Safari */
@@ -26,9 +27,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            /* position: relative; */
         }
         body, html {
             height: 100%;
+            margin: 0;
+            /* overflow-x: hidden; */
         }
         #ipod {
             height: 515px;
@@ -53,59 +57,92 @@
             /* padding: 5px; */
         }
         #menu {
-            height: 15px;
-            width: var(--menuiconwidth);
+            height: 50px;
+            width: 60px;
             /* background-color: red; */
             position: absolute;
             top: var(--clickiconpadding);
-            background-image: url('media/icons/menu.png');
+            display: flex;
+            justify-content: center;
+            /* background-image: url('media/icons/menu.png');
             background-size: contain;
             background-repeat: no-repeat;
-            background-position: center;
+            background-position: center; */
+        }
+        #menu > img {
+            height: 12px;
+            width: var(--menuiconwidth);
+            pointer-events: none;
         }
         #skip_bw {
-            height: var(--clickotherheight);
-            width: var(--clickotherwidth);
+            height: 50px;
+            width: 50px;
+            display: flex;
+            align-items: center;
             /* background-color: red; */
             left: var(--clickiconpadding);
             align-self: center;
             position: absolute;
-            background-image: url('media/icons/back.png');
+            /* background-image: url('media/icons/back.png');
             background-size: contain;
             background-repeat: no-repeat;
-            background-position: center;
+            background-position: center; */
         }
-        #skip_fw {
+        #skip_bw > img {
             height: var(--clickotherheight);
             width: var(--clickotherwidth);
+            pointer-events: none;
+        }
+        #skip_fw {
+            height: 50px;
+            width: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
             /* background-color: red; */
             right: var(--clickiconpadding);
             align-self: center;
             position: absolute;
-            background-image: url('media/icons/forward.png');
+            /* background-image: url('media/icons/forward.png');
             background-size: contain;
             background-repeat: no-repeat;
-            background-position: center;
+            background-position: center; */
         }
-        #pause {
+        #skip_fw > img {
             height: var(--clickotherheight);
             width: var(--clickotherwidth);
+            pointer-events: none;
+            /* margin-left: auto; */
+        }
+        #pause {
+            height: 50px;
+            width: 50px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
             /* background-color: red; */
             position: absolute;
             bottom: var(--clickiconpadding);
-            background-image: url('media/icons/pause.png');
+            /* background-image: url('media/icons/pause.png');
             background-size: contain;
             background-repeat: no-repeat;
-            background-position: center;
+            background-position: center; */
+        }
+        #pause > img {
+            height: var(--clickotherheight);
+            width: var(--clickotherwidth);
+            pointer-events: none;
         }
         #clickbutton {
             align-self: center;
             height: 70px;
             aspect-ratio: 1/1;
             border-radius: 100%;
-            box-shadow: rgb(191, 191, 191) 0px 1em 3em inset;
-            background: rgb(255, 255, 255);
+            box-shadow: rgb(191, 191, 191) 0px 0.5em 3em inset;
+            /* background: rgb(255, 255, 255); */
+            background: var(--cbcolour);
             border: 1px solid rgb(185, 185, 185);
+            transition: background-color 0.1s;
         }
         #screen {
             position: absolute;
@@ -136,6 +173,14 @@
             font-size: calc(var(--titleheight) - 2px);
             position: absolute;
             z-index: 100;
+            display: flex;
+            align-items: center;
+        }
+        #titlebar.half {
+            width: 50%;
+        }
+        #titlebar.full {
+            width: 50%;
         }
         #titletext {
             margin: 0;
@@ -163,9 +208,14 @@
             display: flex;
             align-items: center;
         }
-        .menuitem > p{
+        .menuitem > p {
             margin: 0;
             margin-left: var(--fontmargin);
+        }
+        .menuitem > img {
+            margin: 0;
+            margin-left: auto;
+            /* margin-right: ; */
         }
         .menuitem.selected {
             background: linear-gradient(0deg, rgba(52,123,182,1) 0%, rgba(60,183,254,1) 100%);
@@ -184,6 +234,20 @@
             75% { background-position: 0% 0%; }
             100% { background-position: 0% 100%; }
         }
+        @keyframes imageslide {
+            0%  { left: 0%; bottom: 100%; }
+            25% { left: 100%; bottom: 0%; }
+            50% { left: 100%; bottom: 100%; }
+            75% { left: 0%; bottom: 0%; }
+            100% { left: 0%; bottom: 100%; }
+        }
+        .slidingimage {
+            animation: imageslide 10s ease infinite !important;
+            position: absolute;
+            width: 125%;
+            aspect-ratio: 1/1;
+            z-index: inherit;
+        }
         @media (prefers-color-scheme: light) {
             body {
                 background-color: white;
@@ -194,58 +258,122 @@
                 background-color: black;
             }
         }
+        #battery > .battbod {
+            background: rgb(99,134,76);
+            background: linear-gradient(0deg, rgba(99,134,76,1) 0%, rgba(198,229,178,1) 48%, rgba(165,224,127,1) 100%);
+            height: calc(var(--titleheight) - 6px);
+            width: calc((var(--titleheight) - 4px) * 1.85 );
+            border: 1px solid #626262;
+        }
+        #battery > .battbit {
+            height: 3px;
+            /* width: 3px; */
+            aspect-ratio: 1/1;
+            border: 1px solid #626262;
+            border-radius: 2px;
+            position: absolute;
+            right: 3px;
+            /* margin-left: auto; */
+            z-index: -1;
+        }
+        #battery {
+            margin-left: auto;
+            margin-right: calc(var(--fontmargin));
+            display: flex;
+            align-items: center;
+        }
+        #clicktainer {
+            width: var(--clicksize);
+            height: var(--clicksize);
+            display: flex;
+            justify-content: center;
+        }
+        @media only screen and (max-width: 500px) {
+            #ipod {
+                width: 100%;
+                height: 100%;
+                border-radius: 0;
+            }
+            #screen {
+                    width: 100%;
+                    margin: 1rem 1rem 0px;
+                    position: relative;
+                    top: 0;
+                }
+            }
+            #clickwheel {
+                margin-top: calc(var(--screenheight));
+                bottom: unset;
+                align-self: center;
+            }
     </style>
 </head>
 <body>
     <div id="ipod">
         <div id="screen">
             <div id="screencontents">
-                <div id="titlebar">
+                <div id="titlebar" class="half">
                     <strong><p id="titletext">iPod</p></strong>
+                    <div id="battery">
+                        <div class="battbit"></div>
+                        <div class="battbod"></div>
+                    </div>
                 </div>
                 <div id="screenleft">
-                    <div class="menuitem selected"><p>Music</p></div>
-                    <div class="menuitem"><p>Extras</p></div>
-                    <div class="menuitem"><p>Settings</p></div>
+                    <div class="menuitem selected"><p>Music</p><img src="media/icons/arrow_right.png"></div>
+                    <div class="menuitem"><p>Extras</p><img src="media/icons/arrow_right.png"></div>
+                    <div class="menuitem"><p>Settings</p><img src="media/icons/arrow_right.png"></div>
                 </div>
-                <div id="screenright" class="">
+                <div id="screenright">
                     <!-- <div id="rightshadow"></div> -->
+                    <!-- <img src="media/1000gecs.jpg" class="slidingimage"> -->
                 </div>
             </div>
         </div>
-        <div id="clickwheel">
-            <div id="clickbutton"></div>
-            <div id="menu"></div>
-            <div id="skip_fw"></div>
-            <div id="skip_bw"></div>
-            <div id="pause"></div>
-        </div>
+        <!-- <div id="clicktainer"> -->
+            <div id="clickwheel">
+                <div id="clickbutton"></div>
+                <div id="menu"><img src="media/icons/menu.png"></div>
+                <div id="skip_fw"><img src="media/icons/forward.png"></div>
+                <div id="skip_bw"><img src="media/icons/back.png"></div>
+                <div id="pause"><img src="media/icons/pause.png"></div>
+            </div>
+        <!-- </div> -->
     </div>
 </body>
 <script>
-    var istate = false
+    var istate = true
     var clickwheelheld = false
     var clickwheelx = 0
     var clickwheely = 0
     var movupcounter= 0
     var movdncounter= 0
-    var clickwheelsens = 80 // this number is subtracted from 100, so dont set it over that
+    var clickwheelsens = 92 // this number is subtracted from 100, so dont set it over that | 92 should be good middle ground, anything lower than 50 is unusuable
+    var pausesleeptime = undefined
+    // var pauseheld = false
 
-    document.getElementById('clickbutton').addEventListener('click', button_handler)
+    var clickbutton = document.getElementById('clickbutton')
+    // clickbutton.addEventListener('mousedown', button_handler)
+    // clickbutton.addEventListener('mouseup', button_handler)
     document.getElementById('menu').addEventListener('click', button_handler)
     document.getElementById('skip_fw').addEventListener('click', button_handler)
     document.getElementById('skip_bw').addEventListener('click', button_handler)
-    document.getElementById('pause').addEventListener('click', button_handler)
+    var pause = document.getElementById('pause')
+    pause.addEventListener('mousedown', pausesleep)
+    pause.addEventListener('mouseup', pausesleep)
     var clickwheel = document.getElementById('clickwheel')
     document.addEventListener('mousemove', clickwheel_move)
     document.addEventListener('mousedown', clickwheel_mousebutton)
     document.addEventListener('mouseup', clickwheel_mousebutton)
-    document.addEventListener('pointerleave', clickwheel_mousebutton)
+    document.addEventListener('touchmove', clickwheel_move)
+    document.addEventListener('touchstart', clickwheel_mousebutton)
+    document.addEventListener('touchend', clickwheel_mousebutton)
+    // document.addEventListener('pointerleave', clickwheel_mousebutton)
     const clickwidth = clickwheel.offsetWidth
     const clickheight = clickwheel.offsetHeight
 
     var menuoptions = document.getElementById('screenleft').getElementsByClassName('menuitem')
-    console.log(menuoptions)
+    // console.log(menuoptions)
     var menu_index = 0
 
     function menu_down() {
@@ -262,9 +390,7 @@
         menuoptions[menu_index].classList.add('selected')
     }
 
-    function button_handler(event) {
-        const button = event.target.id
-        console.log(button)
+    function togglepower() {
         if (!istate) { 
             istate = !istate 
             document.getElementById('screencontents').style.opacity = '100'
@@ -273,47 +399,74 @@
             document.getElementById('screencontents').style.opacity = '0'
         }
     }
+
+    function pausesleep(event) {
+        console.log('pausesleep')
+        if (event.type == 'mousedown') {
+            clearTimeout(pausesleeptime);
+            pausesleeptime = setTimeout(() => { togglepower() }, 1500);
+        } else if (event.type == 'mouseup') { clearTimeout(pausesleeptime); }
+    }
+
+    function button_handler(event) {
+        if (!istate) { 
+            istate = !istate 
+            document.getElementById('screencontents').style.opacity = '100'
+        }
+        if (event.target == undefined) { var button = event }
+        else { var button = event.target.id }
+        if (button == 'clickbutton') {
+            var selected = menuoptions[menu_index].innerText.toLowerCase()
+            console.log(selected)
+        } else if (button == 'menu') {
+            console.log('menu pressed')
+        } else if (button == 'skip_fw') {
+            console.log('skip_fw pressed')
+        } else if (button == 'skip_bw') {
+            console.log('skip_bw pressed')
+        } else if (button == 'pause') {
+            console.log('pause pressed')
+        }
+    }
     function clickwheel_move(event) {
         var rect = clickwheel.getBoundingClientRect();
-        if (clickwheelheld) { 
-            var x = Math.floor(event.clientX - rect.left)
-            var y = Math.floor(event.clientY - rect.top)
+        if (clickwheelheld && istate) { 
+            if (event.type === 'touchmove') {
+                // Handle touch events
+                x = Math.floor(event.touches[0].clientX - rect.left);
+                y = Math.floor(event.touches[0].clientY - rect.top);
+            } else {
+                // Handle mouse events
+                x = Math.floor(event.clientX - rect.left);
+                y = Math.floor(event.clientY - rect.top);
+            }
+            // var x = Math.floor(event.clientX - rect.left)
+            // var y = Math.floor(event.clientY - rect.top)
             // console.log('X:'+x+', Y:'+y) 
             // console.log('log X:'+clickwheelx+', log Y:'+clickwheely) 
             
             if (x > clickwidth/2) { 
                 // right side
                 if (y < clickheight/2) {
-                    // above half
-                    if (x > clickwheelx || y > clickwheely) {
-                        movdncounter++
-                    } else if (x < clickwheelx || y < clickwheely) {
-                        movupcounter++
-                    }
+                    // right top
+                    if (x > clickwheelx || y > clickwheely) { movdncounter++ } 
+                    else if (x < clickwheelx || y < clickwheely) { movupcounter++ }
                 } else {
-                    // below half
-                    if (x < clickwheelx || y > clickwheely) {
-                        movdncounter++
-                    } else if (x > clickwheelx || y < clickwheely) {
-                        movupcounter++
-                    }
+                    // right bottom
+                    if (x < clickwheelx || y > clickwheely) { movdncounter++ } 
+                    else if (x > clickwheelx || y < clickwheely) { movupcounter++ }
                 }
 
             } else {
+                // left side
                 if (y < clickheight/2) {
-                    // above half
-                    if (x > clickwheelx || y < clickwheely) {
-                        movdncounter++
-                    } else if (x < clickwheelx || y > clickwheely) {
-                        movupcounter++
-                    }
+                    // left top
+                    if (x > clickwheelx || y < clickwheely) { movdncounter++ } 
+                    else if (x < clickwheelx || y > clickwheely) { movupcounter++ }
                 } else {
-                    // below half
-                    if (x < clickwheelx || y > clickwheely) {
-                        movdncounter++
-                    } else if (x > clickwheelx || y < clickwheely) {
-                        movupcounter++
-                    }
+                    // left bottom
+                    if (x < clickwheelx || y > clickwheely) { movdncounter++ } 
+                    else if (x > clickwheelx || y < clickwheely) { movupcounter++ }
                 }
             }
 
@@ -333,14 +486,38 @@
         }
     }
 
+    function clickwheel_check(target) {
+        let node = target.parentNode;
+
+        while (node != null) {
+            if (node == clickwheel) {
+                return true;
+            }
+        node = node.parentNode;
+        }
+        return false;
+    }
+
     function clickwheel_mousebutton(event) {
-        if (event.target == clickwheel) {
-            if (event.type == 'mousedown') { 
+        // if (event.target == clickwheel) {
+            // console.log(event.target.parentNode)
+        if (event.type == 'touchstart') {event.preventDefault();}
+        if (event.target == clickwheel || clickwheel_check(event.target)) {
+            if (event.type == 'mousedown' || event.type == 'touchstart') { 
                 clickwheelheld = true 
             }
         } 
-        if (event.type == 'mouseup') { 
+        if (event.target == clickbutton) { if (event.type == 'mousedown' || event.type == 'touchstart') { document.querySelector(':root').style.setProperty('--cbcolour', 'rgb(240, 240, 240)'); button_handler('clickbutton')} } 
+        if (event.type == 'mouseup' || event.type == 'touchend') { 
             clickwheelheld = false
+            document.querySelector(':root').style.setProperty('--cbcolour', 'rgb(255, 255, 255)');
         }
     }
+    document.addEventListener('touchmove', function(event) {
+        event.preventDefault();
+    }, { passive: false });
+
+    document.addEventListener('scroll', function(event) {
+        event.preventDefault();
+    }, { passive: false });
 </script>
