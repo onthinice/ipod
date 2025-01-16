@@ -1,5 +1,17 @@
 <!doctype html>
+<!doctype html>
 <head>
+    <audio id="audioPlayer" preload="auto" hidden>
+        <!-- Default Hyperpop -->
+        <source id="hyperpopSource" src="https://uk17freenew.listen2myradio.com/live.mp3?typeportmount=s1_31751_stream_" type="audio/mpeg">
+        <!-- Add more sources for other categories -->
+        <source id="tellmeSource" src="https://audio.jukehost.co.uk/3Fy6sBPrypD6458jKsABVdel1Rz71RBk" type="audio/mp3/wav">
+        <source id="trendingSource" src="https://digicore.stream.laut.fm/digicore?t302=2025-01-15_09-43-05&uuid=e5dc9131-4483-4833-8431-57aedca7f61b" type="audio/mpeg">
+        <source id="sorrySource" src="https://audio.jukehost.co.uk/QPqc0k0TdUN1VrE1uvJpLHfXC2ZmrZ8e" type="audio/mp3/wav">
+        Your browser does not support the audio element.
+    </audio>
+</head>
+
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <style>
         :root {
@@ -315,16 +327,18 @@
         <div id="screen">
             <div id="screencontents">
                 <div id="titlebar" class="half">
-                    <strong><p id="titletext">iPod</p></strong>
+                    <strong><p id="titletext">GossiPod</p></strong>
                     <div id="battery">
                         <div class="battbit"></div>
                         <div class="battbod"></div>
                     </div>
                 </div>
                 <div id="screenleft">
-                    <div class="menuitem selected"><p>Music</p><img src="media/icons/arrow_right.png"></div>
-                    <div class="menuitem"><p>Extras</p><img src="media/icons/arrow_right.png"></div>
-                    <div class="menuitem"><p>Settings</p><img src="media/icons/arrow_right.png"></div>
+                    <div class="menuitem selected"><p>Hyperpop</p><img src="media/icons/arrow_right.png"></div>
+                    <div class="menuitem"><p>Trending</p><img src="media/icons/arrow_right.png"></div>
+                    <div class="menuitem"><p>Sorry</p><img src="media/icons/arrow_right.png"></div>
+                    <div class="menuitem"><p>Tell me</p><img src="media/icons/arrow_right.png"></div>
+                    <div class="menuitem"><p>Noah Wolf</p><img src="media/icons/arrow_right.png"></div>
                 </div>
                 <div id="screenright">
                     <!-- <div id="rightshadow"></div> -->
@@ -410,26 +424,49 @@
         } else if (event.type == 'mouseup') { clearTimeout(pausesleeptime); }
     }
 
-    function button_handler(event) {
-        if (!istate) { 
-            istate = !istate 
-            document.getElementById('screencontents').style.opacity = '100'
+    // Get reference to the audio player
+var audioPlayer = document.getElementById('audioPlayer');
+
+function button_handler(event) {
+    if (!istate) { 
+        istate = !istate; 
+        document.getElementById('screencontents').style.opacity = '100';
+    }
+    if (event.target == undefined) { var button = event }
+    else { var button = event.target.id }
+
+    if (button == 'clickbutton') {
+        var selected = menuoptions[menu_index].innerText.toLowerCase();
+        console.log(selected);
+
+        // Set the corresponding audio source based on the selected category
+        if (selected === "hyperpop") {
+            audioPlayer.src = document.getElementById('hyperpopSource').src;
+        } else if (selected === "tell me") {
+            audioPlayer.src = document.getElementById('tellmeSource').src;
+        } else if (selected === "trending") {
+            audioPlayer.src = document.getElementById('trendingSource').src;
+        } else if (selected === "sorry") {
+            audioPlayer.src = document.getElementById('sorrySource').src;
+        } else if (selected === "noah wolf") {
+            // Redirect to a specific URL for "Noah Wolf"
+            window.location.href = "https://twitter.com/nhwlf"; // Replace with the desired URL
+            console.log("Redirecting to Noah Wolf URL.");  
         }
-        if (event.target == undefined) { var button = event }
-        else { var button = event.target.id }
-        if (button == 'clickbutton') {
-            var selected = menuoptions[menu_index].innerText.toLowerCase()
-            console.log(selected)
-        } else if (button == 'menu') {
-            console.log('menu pressed')
-        } else if (button == 'skip_fw') {
-            console.log('skip_fw pressed')
-        } else if (button == 'skip_bw') {
-            console.log('skip_bw pressed')
-        } else if (button == 'pause') {
-            console.log('pause pressed')
+
+        // Play or pause the audio when the button is clicked
+        if (audioPlayer.paused) {
+            audioPlayer.play();
+            console.log("Audio is now playing.");
+        } else {
+            audioPlayer.pause();  // Pause if already playing
+            audioPlayer.currentTime = 0;  // Reset the audio to the beginning
+            console.log("Audio paused and reset.");
         }
     }
+}
+
+
     function clickwheel_move(event) {
         var rect = clickwheel.getBoundingClientRect();
         if (clickwheelheld && istate) { 
