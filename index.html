@@ -365,8 +365,21 @@
     var movupcounter= 0
     var movdncounter= 0
     var clickwheelsens = 94 // this number is subtracted from 100, so dont set it over that | 92 should be good middle ground, anything lower than 50 is unusuable
-    var pausesleeptime = undefined
-    // var pauseheld = false
+    var audioPlayer = document.getElementById('audioPlayer');
+
+var pauseButton = document.getElementById('pause');
+pauseButton.addEventListener('click', pausePlayAudio);
+
+function pausePlayAudio() {
+    if (audioPlayer.paused) {
+        audioPlayer.play();
+        console.log("Audio is now playing.");
+    } else {
+        audioPlayer.pause();
+        console.log("Audio paused.");
+    }
+}
+
 
     var clickbutton = document.getElementById('clickbutton')
     // clickbutton.addEventListener('mousedown', button_handler)
