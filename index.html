@@ -1,5 +1,6 @@
 <!doctype html>
 <head>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.png"> 
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <style>
         :root {
@@ -120,7 +121,7 @@
             transition: background-color 0.1s;
         }
         #screen {
-            position: absolute;
+            position: relative;
             background-color: black;
             top: calc((var(--iwidth) - var(--screenwidth)) / 2);
             width: var(--screenwidth);
@@ -131,7 +132,7 @@
         }
         #screencontents {
             width: 100%;
-            height: 100%;
+            height: 200%;
             transition: opacity 0.2s;
             background-color: white;
             display: flex;
@@ -160,18 +161,34 @@
             margin-left: var(--fontmargin);
             width: fit-content;
         }
-        #screenleft {
+                #screenleft {
             width: 50%;
             height: 100%;
             margin-top: var(--titleheight);
+            overflow-y: auto;
+            scrollbar-width: none;
+        -ms-overflow-style: none;
+            background: none;
+            
         }
-        #screenright {
+        #screenleft::-webkit-scrollbar {
+            display: none;
+        }
+          #screenright {
             width: 50%;
             height: 100%;
             margin-left: auto;
             background: linear-gradient(45deg, rgba(104,110,122,1) 0%, rgba(177,181,192,1) 100%);
-            box-shadow: inset 15px 0 14px -15px rgba(0,0,0,0.4);
+          
             z-index: 101;
+            overflow-y: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+              position: relative;
+           padding: 0;
+        }
+             #screenright::-webkit-scrollbar {
+            display: none;
         }
         .menuitem {
             height: calc(var(--titleheight) * 1.65);
@@ -179,6 +196,7 @@
             font-weight: bold;
             display: flex;
             align-items: center;
+            white-space: nowrap;
         }
         .menuitem > p {
             margin: 0;
@@ -193,10 +211,12 @@
             color: white;
         }
         .backgroundslide {
-            background-image: url('media/1000gecs.jpg') !important;
-            background-size: 175% !important;
+            background-image: url('https://i.postimg.cc/Rhxx1xx3/SORRY-cover.png') !important;
+            background-size: cover !important;
+             background-position: center;
             background-repeat: no-repeat !important;
             animation: backgroundslide 50s infinite !important;
+          
         }
         @keyframes backgroundslide {
             0% { background-position: 0% 100%; }
@@ -214,10 +234,14 @@
         }
         .slidingimage {
             animation: imageslide 10s ease infinite !important;
-            position: absolute;
-            width: 125%;
-            aspect-ratio: 1/1;
+             position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 90%;
+             object-fit: cover;
             z-index: inherit;
+              
         }
         @media (prefers-color-scheme: light) {
             body {
@@ -277,11 +301,30 @@
                 bottom: unset;
                 align-self: center;
             }
+             #drop-zone {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 102;
+                pointer-events: auto;
+            }
+          #drop-zone {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 102;
+                pointer-events: none;
+            }
     </style>
 </head>
 <body>
     <div id="ipod">
         <div id="screen">
+              <div id="drop-zone"></div>
             <div id="screencontents">
                 <div id="titlebar" class="half">
                     <strong><p id="titletext">GossiPod</p></strong>
@@ -298,8 +341,12 @@
                     <div class="menuitem" data-source="tellme"><p>Tell me</p><img src="media/icons/arrow_right.png"></div>
                     <div class="menuitem" data-source="irhybf"><p>IRHYBF</p><img src="media/icons/arrow_right.png"></div>
                     <div class="menuitem" data-source="noahwolf"><p>Noah Wolf</p><img src="media/icons/arrow_right.png"></div>
+                    <div class="menuitem" data-source="website"><p>Website</p><img src="media/icons/arrow_right.png"></div>
                 </div>
                 <div id="screenright">
+                   <!--<img src="https://media1.tenor.com/m/v8f0O98Zs3YAAAAd/noah-wolf-noah-xoxo.gif" class="slidingimage">-->
+                </div>
+            </div>
                 </div>
             </div>
         </div>
@@ -310,7 +357,7 @@
             <div id="skip_bw"><img src="media/icons/back.png"></div>
             <div id="pause"><img src="media/icons/pause.png"></div>
         </div>
-    </div>
+        <input type="file" id="fileInput" style="display: none" multiple accept="audio/*" />
 </body>
 <script>
     var istate = true;
@@ -325,10 +372,10 @@ var pausesleeptime;
 const audioSources = {
     hyperpop: { src: "https://uk17freenew.listen2myradio.com/live.mp3?typeportmount=s1_31751_stream_", element: null },
     tellme: { src: "https://audio.jukehost.co.uk/3Fy6sBPrypD6458jKsABVdel1Rz71RBk", element: null },
-    trending: { src: "https://digicore.stream.laut.fm/digicore?t302=2025-01-15_09-43-05&uuid=e5dc9131-4483-4833-8431-57aedca7f61b", element: null },
+    trending: { src: "https://digicore.stream.laut.fm/digicore?t302=2025-01-28_00-02-35&uuid=0a6f03c2-caba-4629-9020-febb583163ef", element: null },
     sorry: { src: "https://audio.jukehost.co.uk/QPqc0k0TdUN1VrE1uvJpLHfXC2ZmrZ8e", element: null },
-    classical: { src: "https://classica.stream.laut.fm/classica?t302=2025-01-28_00-02-35&uuid=0a6f03c2-caba-4629-9020-febb583163ef", element: null },
-    irhybf: { src: "https://audio.jukehost.co.uk/tbpv06uhKdqKNwOU9ViECQ3dszC40cvn", element: null },
+     classical: { src: "https://classica.stream.laut.fm/classica?t302=2025-01-28_00-02-35&uuid=0a6f03c2-caba-4629-9020-febb583163ef", element: null },
+     irhybf: { src: "https://audio.jukehost.co.uk/tbpv06uhKdqKNwOU9ViECQ3dszC40cvn", element: null },
 };
 
 
@@ -380,6 +427,7 @@ const clickheight = clickwheel.offsetHeight;
 
 var menuoptions = document.getElementById('screenleft').getElementsByClassName('menuitem');
 var menu_index = 0;
+var screenLeft = document.getElementById('screenleft');
 function menu_down() {
     if (menu_index + 1 >= menuoptions.length) {
         return;
@@ -387,6 +435,8 @@ function menu_down() {
     menuoptions[menu_index].classList.remove('selected');
     menu_index++;
     menuoptions[menu_index].classList.add('selected');
+     menuoptions[menu_index].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
 }
 
 function menu_up() {
@@ -396,6 +446,8 @@ function menu_up() {
     menuoptions[menu_index].classList.remove('selected');
     menu_index--;
     menuoptions[menu_index].classList.add('selected');
+        menuoptions[menu_index].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
 }
 
 function togglepower() {
@@ -436,7 +488,11 @@ function button_handler(event) {
       if (button == 'clickbutton') {
         var selected = menuoptions[menu_index].getAttribute('data-source');
         if (selected == 'noahwolf') {
-            window.location.href = "https://twitter.com/nhwlf";
+            window.location.href = "https://Twitter.com.com/NHWLF";
+            return
+        }
+        if (selected == 'website') {
+            window.location.href = "https://noah.wf";
             return
         }
           playAudio(selected);
@@ -450,6 +506,7 @@ function button_handler(event) {
             }
         }
         menuoptions[menu_index].classList.add('selected')
+            menuoptions[menu_index].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 }
 
@@ -577,5 +634,64 @@ document.addEventListener('scroll', function(event) {
     event.preventDefault();
 }, {
     passive: false
+});
+
+
+const dropZone = document.getElementById('drop-zone');
+
+    dropZone.addEventListener('dragover', (event) => {
+        event.preventDefault();
+    });
+    dropZone.addEventListener('dragleave', (event) => {
+        event.preventDefault();
+    });
+
+    dropZone.addEventListener('drop', (event) => {
+        event.preventDefault();
+         const files = event.dataTransfer.files;
+        if (files.length > 0) {
+            handleFiles(files);
+        }
+    });
+
+    function handleFiles(files) {
+         for (const file of files) {
+             if (file.type.startsWith('audio/')) {
+                    const fileUrl = URL.createObjectURL(file);
+                const fileName = file.name
+                addAudioSource(fileName, fileUrl)
+                console.log(`Added ${file.name} with url ${fileUrl}`);
+        }
+    }
+}
+
+function addAudioSource(name, url) {
+    const newSourceKey = `custom-${Date.now()}`;
+    audioSources[newSourceKey] = { src: url, element: null };
+    const audioElement = document.createElement('audio');
+    audioElement.src = url
+    audioElement.preload = "auto";
+    audioElement.hidden = true;
+    document.body.appendChild(audioElement)
+    audioSources[newSourceKey].element = audioElement;
+    const newMenuItem = document.createElement('div');
+    newMenuItem.classList.add('menuitem');
+    newMenuItem.setAttribute('data-source', newSourceKey);
+    newMenuItem.innerHTML = `<p>${name}</p><img src="media/icons/arrow_right.png">`;
+    document.getElementById('screenleft').appendChild(newMenuItem);
+
+    newMenuItem.addEventListener('click', button_handler);
+
+    menuoptions = document.getElementById('screenleft').getElementsByClassName('menuitem') // Update the menu options array
+}
+ const fileInput = document.getElementById('fileInput');
+    document.getElementById('skip_fw').addEventListener('click', () => {
+    fileInput.click(); // Programmatically click the input
+    });
+    fileInput.addEventListener('change', (event) => {
+     const files = event.target.files;
+        if (files.length > 0) {
+            handleFiles(files);
+        }
 });
 </script>
