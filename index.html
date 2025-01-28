@@ -1,16 +1,5 @@
 <!doctype html>
 <head>
-    <audio id="audioPlayer" preload="auto" hidden>
-        <!-- Default Hyperpop -->
-        <source id="hyperpopSource" src="https://uk17freenew.listen2myradio.com/live.mp3?typeportmount=s1_31751_stream_" type="audio/mpeg">
-        <!-- Add more sources for other categories -->
-        <source id="tellmeSource" src="https://audio.jukehost.co.uk/3Fy6sBPrypD6458jKsABVdel1Rz71RBk" type="audio/mp3/wav">
-        <source id="trendingSource" src="https://digicore.stream.laut.fm/digicore?t302=2025-01-15_09-43-05&uuid=e5dc9131-4483-4833-8431-57aedca7f61b" type="audio/mpeg">
-        <source id="sorrySource" src="https://audio.jukehost.co.uk/QPqc0k0TdUN1VrE1uvJpLHfXC2ZmrZ8e" type="audio/mp3/wav">
-        Your browser does not support the audio element.
-    </audio>
-</head>
-
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <style>
         :root {
@@ -28,9 +17,9 @@
             --cbcolour: rgb(255, 255, 255);
         }
         html {
-            -webkit-user-select: none; /* Safari */
-            -ms-user-select: none; /* IE 10 and IE 11 */
-            user-select: none; /* Standard syntax */
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
@@ -38,12 +27,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            /* position: relative; */
         }
         body, html {
             height: 100%;
             margin: 0;
-            /* overflow-x: hidden; */
         }
         #ipod {
             height: 515px;
@@ -65,20 +52,14 @@
             display: flex;
             justify-content: center;
             border: 1px solid rgb(185, 185, 185);
-            /* padding: 5px; */
         }
         #menu {
             height: 50px;
             width: 60px;
-            /* background-color: red; */
             position: absolute;
             top: var(--clickiconpadding);
             display: flex;
             justify-content: center;
-            /* background-image: url('media/icons/menu.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center; */
         }
         #menu > img {
             height: 12px;
@@ -90,14 +71,9 @@
             width: 50px;
             display: flex;
             align-items: center;
-            /* background-color: red; */
             left: var(--clickiconpadding);
             align-self: center;
             position: absolute;
-            /* background-image: url('media/icons/back.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center; */
         }
         #skip_bw > img {
             height: var(--clickotherheight);
@@ -110,20 +86,14 @@
             display: flex;
             align-items: center;
             justify-content: flex-end;
-            /* background-color: red; */
             right: var(--clickiconpadding);
             align-self: center;
             position: absolute;
-            /* background-image: url('media/icons/forward.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center; */
         }
         #skip_fw > img {
             height: var(--clickotherheight);
             width: var(--clickotherwidth);
             pointer-events: none;
-            /* margin-left: auto; */
         }
         #pause {
             height: 50px;
@@ -131,13 +101,8 @@
             display: flex;
             align-items: flex-end;
             justify-content: center;
-            /* background-color: red; */
             position: absolute;
             bottom: var(--clickiconpadding);
-            /* background-image: url('media/icons/pause.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center; */
         }
         #pause > img {
             height: var(--clickotherheight);
@@ -150,7 +115,6 @@
             aspect-ratio: 1/1;
             border-radius: 100%;
             box-shadow: rgb(191, 191, 191) 0px 0.5em 3em inset;
-            /* background: rgb(255, 255, 255); */
             background: var(--cbcolour);
             border: 1px solid rgb(185, 185, 185);
             transition: background-color 0.1s;
@@ -164,10 +128,8 @@
             border-radius: var(--screenradius);
             border: 3px solid black;
             overflow: hidden
-            /* transition: ; */
         }
         #screencontents {
-            /* opacity: 0; */
             width: 100%;
             height: 100%;
             transition: opacity 0.2s;
@@ -214,7 +176,6 @@
         .menuitem {
             height: calc(var(--titleheight) * 1.65);
             width: 100%;
-            /* background-color: #7995a3; */
             font-weight: bold;
             display: flex;
             align-items: center;
@@ -226,7 +187,6 @@
         .menuitem > img {
             margin: 0;
             margin-left: auto;
-            /* margin-right: ; */
         }
         .menuitem.selected {
             background: linear-gradient(0deg, rgba(52,123,182,1) 0%, rgba(60,183,254,1) 100%);
@@ -278,13 +238,11 @@
         }
         #battery > .battbit {
             height: 3px;
-            /* width: 3px; */
             aspect-ratio: 1/1;
             border: 1px solid #626262;
             border-radius: 2px;
             position: absolute;
             right: 3px;
-            /* margin-left: auto; */
             z-index: -1;
         }
         #battery {
@@ -333,242 +291,291 @@
                     </div>
                 </div>
                 <div id="screenleft">
-                    <div class="menuitem selected"><p>Hyperpop</p><img src="media/icons/arrow_right.png"></div>
-                    <div class="menuitem"><p>Trending</p><img src="media/icons/arrow_right.png"></div>
-                    <div class="menuitem"><p>Sorry</p><img src="media/icons/arrow_right.png"></div>
-                    <div class="menuitem"><p>Tell me</p><img src="media/icons/arrow_right.png"></div>
-                    <div class="menuitem"><p>Noah Wolf</p><img src="media/icons/arrow_right.png"></div>
+                    <div class="menuitem selected" data-source="hyperpop"><p>Hyperpop</p><img src="media/icons/arrow_right.png"></div>
+                    <div class="menuitem" data-source="trending"><p>Trending</p><img src="media/icons/arrow_right.png"></div>
+                    <div class="menuitem" data-source="classical"><p>Classical</p><img src="media/icons/arrow_right.png"></div>
+                    <div class="menuitem" data-source="sorry"><p>Sorry</p><img src="media/icons/arrow_right.png"></div>
+                    <div class="menuitem" data-source="tellme"><p>Tell me</p><img src="media/icons/arrow_right.png"></div>
+                    <div class="menuitem" data-source="irhybf"><p>IRHYBF</p><img src="media/icons/arrow_right.png"></div>
+                    <div class="menuitem" data-source="noahwolf"><p>Noah Wolf</p><img src="media/icons/arrow_right.png"></div>
                 </div>
                 <div id="screenright">
-                    <!-- <div id="rightshadow"></div> -->
-                    <!-- <img src="media/1000gecs.jpg" class="slidingimage"> -->
                 </div>
             </div>
         </div>
-        <!-- <div id="clicktainer"> -->
-            <div id="clickwheel">
-                <div id="clickbutton"></div>
-                <div id="menu"><img src="media/icons/menu.png"></div>
-                <div id="skip_fw"><img src="media/icons/forward.png"></div>
-                <div id="skip_bw"><img src="media/icons/back.png"></div>
-                <div id="pause"><img src="media/icons/pause.png"></div>
-            </div>
-        <!-- </div> -->
+        <div id="clickwheel">
+            <div id="clickbutton"></div>
+            <div id="menu"><img src="media/icons/menu.png"></div>
+            <div id="skip_fw"><img src="media/icons/forward.png"></div>
+            <div id="skip_bw"><img src="media/icons/back.png"></div>
+            <div id="pause"><img src="media/icons/pause.png"></div>
+        </div>
     </div>
 </body>
 <script>
-    var istate = true
-    var clickwheelheld = false
-    var clickwheelx = 0
-    var clickwheely = 0
-    var movupcounter= 0
-    var movdncounter= 0
-    var clickwheelsens = 94 // this number is subtracted from 100, so dont set it over that | 92 should be good middle ground, anything lower than 50 is unusuable
-    var audioPlayer = document.getElementById('audioPlayer');
+    var istate = true;
+var clickwheelheld = false;
+var clickwheelx = 0;
+var clickwheely = 0;
+var movupcounter = 0;
+var movdncounter = 0;
+var clickwheelsens = 94;
+var pausesleeptime;
+// Store the audio elements by category
+const audioSources = {
+    hyperpop: { src: "https://uk17freenew.listen2myradio.com/live.mp3?typeportmount=s1_31751_stream_", element: null },
+    tellme: { src: "https://audio.jukehost.co.uk/3Fy6sBPrypD6458jKsABVdel1Rz71RBk", element: null },
+    trending: { src: "https://digicore.stream.laut.fm/digicore?t302=2025-01-15_09-43-05&uuid=e5dc9131-4483-4833-8431-57aedca7f61b", element: null },
+    sorry: { src: "https://audio.jukehost.co.uk/QPqc0k0TdUN1VrE1uvJpLHfXC2ZmrZ8e", element: null },
+    classical: { src: "https://classica.stream.laut.fm/classica?t302=2025-01-28_00-02-35&uuid=0a6f03c2-caba-4629-9020-febb583163ef", element: null },
+    irhybf: { src: "https://audio.jukehost.co.uk/tbpv06uhKdqKNwOU9ViECQ3dszC40cvn", element: null },
+};
+
+
+// Create audio elements
+for (const key in audioSources) {
+    if (audioSources.hasOwnProperty(key)) {
+        const audioElement = document.createElement('audio');
+        audioElement.src = audioSources[key].src;
+        audioElement.preload = "auto";
+         audioElement.hidden = true;
+         document.body.appendChild(audioElement)
+        audioSources[key].element = audioElement;
+    }
+}
+
+var currentAudio = null;
 
 var pauseButton = document.getElementById('pause');
 pauseButton.addEventListener('click', pausePlayAudio);
 
+
 function pausePlayAudio() {
-    if (audioPlayer.paused) {
-        audioPlayer.play();
+    if (currentAudio == null) return
+     if (currentAudio.paused) {
+        currentAudio.play();
         console.log("Audio is now playing.");
     } else {
-        audioPlayer.pause();
+        currentAudio.pause();
         console.log("Audio paused.");
     }
 }
 
+var clickbutton = document.getElementById('clickbutton');
+document.getElementById('menu').addEventListener('click', button_handler);
+document.getElementById('skip_fw').addEventListener('click', button_handler);
+document.getElementById('skip_bw').addEventListener('click', button_handler);
+var pause = document.getElementById('pause');
+pause.addEventListener('mousedown', pausesleep);
+pause.addEventListener('mouseup', pausesleep);
+var clickwheel = document.getElementById('clickwheel');
+document.addEventListener('mousemove', clickwheel_move);
+document.addEventListener('touchmove', clickwheel_move);
+document.addEventListener('mousedown', clickwheel_mousebutton);
+document.addEventListener('mouseup', clickwheel_mousebutton);
+document.addEventListener('touchstart', clickwheel_mousebutton);
+document.addEventListener('touchend', clickwheel_mousebutton);
+const clickwidth = clickwheel.offsetWidth;
+const clickheight = clickwheel.offsetHeight;
 
-    var clickbutton = document.getElementById('clickbutton')
-    // clickbutton.addEventListener('mousedown', button_handler)
-    // clickbutton.addEventListener('mouseup', button_handler)
-    document.getElementById('menu').addEventListener('click', button_handler)
-    document.getElementById('skip_fw').addEventListener('click', button_handler)
-    document.getElementById('skip_bw').addEventListener('click', button_handler)
-    var pause = document.getElementById('pause')
-    pause.addEventListener('mousedown', pausesleep)
-    pause.addEventListener('mouseup', pausesleep)
-    var clickwheel = document.getElementById('clickwheel')
-    document.addEventListener('mousemove', clickwheel_move)
-    document.addEventListener('mousedown', clickwheel_mousebutton)
-    document.addEventListener('mouseup', clickwheel_mousebutton)
-    document.addEventListener('touchmove', clickwheel_move)
-    document.addEventListener('touchstart', clickwheel_mousebutton)
-    document.addEventListener('touchend', clickwheel_mousebutton)
-    // document.addEventListener('pointerleave', clickwheel_mousebutton)
-    const clickwidth = clickwheel.offsetWidth
-    const clickheight = clickwheel.offsetHeight
-
-    var menuoptions = document.getElementById('screenleft').getElementsByClassName('menuitem')
-    // console.log(menuoptions)
-    var menu_index = 0
-
-    function menu_down() {
-        if (menu_index+1 >= menuoptions.length) {return}
-        menuoptions[menu_index].classList.remove('selected')
-        menu_index++
-        menuoptions[menu_index].classList.add('selected')
+var menuoptions = document.getElementById('screenleft').getElementsByClassName('menuitem');
+var menu_index = 0;
+function menu_down() {
+    if (menu_index + 1 >= menuoptions.length) {
+        return;
     }
+    menuoptions[menu_index].classList.remove('selected');
+    menu_index++;
+    menuoptions[menu_index].classList.add('selected');
+}
 
-    function menu_up() {
-        if (menu_index-1 < 0) {return}
-        menuoptions[menu_index].classList.remove('selected')
-        menu_index--
-        menuoptions[menu_index].classList.add('selected')
+function menu_up() {
+    if (menu_index - 1 < 0) {
+        return;
     }
+    menuoptions[menu_index].classList.remove('selected');
+    menu_index--;
+    menuoptions[menu_index].classList.add('selected');
+}
 
-    function togglepower() {
-        if (!istate) { 
-            istate = !istate 
-            document.getElementById('screencontents').style.opacity = '100'
-        } else if (istate) {
-            istate = !istate 
-            document.getElementById('screencontents').style.opacity = '0'
-        }
+function togglepower() {
+    if (!istate) {
+        istate = !istate;
+        document.getElementById('screencontents').style.opacity = '100';
+    } else if (istate) {
+        istate = !istate;
+        document.getElementById('screencontents').style.opacity = '0';
     }
+}
 
-    function pausesleep(event) {
-        console.log('pausesleep')
-        if (event.type == 'mousedown') {
-            clearTimeout(pausesleeptime);
-            pausesleeptime = setTimeout(() => { togglepower() }, 1500);
-        } else if (event.type == 'mouseup') { clearTimeout(pausesleeptime); }
+function pausesleep(event) {
+    console.log('pausesleep');
+    if (event.type == 'mousedown') {
+        clearTimeout(pausesleeptime);
+        pausesleeptime = setTimeout(() => {
+            togglepower();
+        }, 1500);
+    } else if (event.type == 'mouseup') {
+        clearTimeout(pausesleeptime);
     }
-
-    // Get reference to the audio player
-var audioPlayer = document.getElementById('audioPlayer');
+}
 
 function button_handler(event) {
-    if (!istate) { 
-        istate = !istate; 
+        if (!istate) {
+        istate = !istate;
         document.getElementById('screencontents').style.opacity = '100';
     }
-    if (event.target == undefined) { var button = event }
-    else { var button = event.target.id }
+    var button;
+    if (event.target == undefined) {
+         button = event;
+    } else {
+         button = event.target.id;
+    }
 
-    if (button == 'clickbutton') {
-        var selected = menuoptions[menu_index].innerText.toLowerCase();
-        console.log(selected);
 
-        // Set the corresponding audio source based on the selected category
-        if (selected === "hyperpop") {
-            audioPlayer.src = document.getElementById('hyperpopSource').src;
-        } else if (selected === "tell me") {
-            audioPlayer.src = document.getElementById('tellmeSource').src;
-        } else if (selected === "trending") {
-            audioPlayer.src = document.getElementById('trendingSource').src;
-        } else if (selected === "sorry") {
-            audioPlayer.src = document.getElementById('sorrySource').src;
-        } else if (selected === "noah wolf") {
-            // Redirect to a specific URL for "Noah Wolf"
-            window.location.href = "https://twitter.com/nhwlf"; // Replace with the desired URL
-            console.log("Redirecting to Noah Wolf URL.");  
+      if (button == 'clickbutton') {
+        var selected = menuoptions[menu_index].getAttribute('data-source');
+        if (selected == 'noahwolf') {
+            window.location.href = "https://twitter.com/nhwlf";
+            return
+        }
+          playAudio(selected);
+
+    } else if (event.target.classList.contains('menuitem')) {
+        var selected = event.target.getAttribute('data-source')
+          menuoptions[menu_index].classList.remove('selected')
+        for(let i = 0; i < menuoptions.length; i++) {
+             if (menuoptions[i] === event.target) {
+                menu_index = i;
+            }
+        }
+        menuoptions[menu_index].classList.add('selected')
+    }
+}
+
+function playAudio(source) {
+        if (currentAudio) {
+            currentAudio.pause();
+            currentAudio.currentTime = 0;
+        }
+        currentAudio = audioSources[source].element;
+        currentAudio.play()
+         .then(() => {
+            console.log("Audio is now playing.");
+        })
+        .catch(error => {
+            console.error("Audio playback failed:", error);
+            currentAudio.currentTime = 0;
+            currentAudio.pause()
+        });
+}
+
+function clickwheel_move(event) {
+    var rect = clickwheel.getBoundingClientRect();
+    if (clickwheelheld && istate) {
+        if (event.type === 'touchmove') {
+            // Handle touch events
+            x = Math.floor(event.touches[0].clientX - rect.left);
+            y = Math.floor(event.touches[0].clientY - rect.top);
+        } else {
+            // Handle mouse events
+            x = Math.floor(event.clientX - rect.left);
+            y = Math.floor(event.clientY - rect.top);
         }
 
-        // Play or pause the audio when the button is clicked
-        if (audioPlayer.paused) {
-            audioPlayer.play();
-            console.log("Audio is now playing.");
+        if (x > clickwidth / 2) {
+            // right side
+            if (y < clickheight / 2) {
+                // right top
+                if (x > clickwheelx || y > clickwheely) {
+                    movdncounter++;
+                } else if (x < clickwheelx || y < clickwheely) {
+                    movupcounter++;
+                }
+            } else {
+                // right bottom
+                if (x < clickwheelx || y > clickwheely) {
+                    movdncounter++;
+                } else if (x > clickwheelx || y < clickwheely) {
+                    movupcounter++;
+                }
+            }
+
         } else {
-            audioPlayer.pause();  // Pause if already playing
-            audioPlayer.currentTime = 0;  // Reset the audio to the beginning
-            console.log("Audio paused and reset.");
+            // left side
+            if (y < clickheight / 2) {
+                // left top
+                if (x > clickwheelx || y < clickwheely) {
+                    movdncounter++;
+                } else if (x < clickwheelx || y > clickwheely) {
+                    movupcounter++;
+                }
+            } else {
+                // left bottom
+                if (x < clickwheelx || y < clickwheely) {
+                    movdncounter++;
+                } else if (x > clickwheelx || y > clickwheely) {
+                    movupcounter++;
+                }
+            }
+        }
+
+        clickwheelx = x;
+        clickwheely = y;
+
+        if (movupcounter > 100 - clickwheelsens) {
+            movupcounter = 0;
+            movdncounter = 0;
+            menu_up();
+        } else if (movdncounter > 100 - clickwheelsens) {
+            movupcounter = 0;
+            movdncounter = 0;
+            menu_down();
         }
     }
 }
 
+function clickwheel_check(target) {
+    let node = target.parentNode;
 
-    function clickwheel_move(event) {
-        var rect = clickwheel.getBoundingClientRect();
-        if (clickwheelheld && istate) { 
-            if (event.type === 'touchmove') {
-                // Handle touch events
-                x = Math.floor(event.touches[0].clientX - rect.left);
-                y = Math.floor(event.touches[0].clientY - rect.top);
-            } else {
-                // Handle mouse events
-                x = Math.floor(event.clientX - rect.left);
-                y = Math.floor(event.clientY - rect.top);
-            }
-            // var x = Math.floor(event.clientX - rect.left)
-            // var y = Math.floor(event.clientY - rect.top)
-            // console.log('X:'+x+', Y:'+y) 
-            // console.log('log X:'+clickwheelx+', log Y:'+clickwheely) 
-            
-            if (x > clickwidth/2) { 
-                // right side
-                if (y < clickheight/2) {
-                    // right top
-                    if (x > clickwheelx || y > clickwheely) { movdncounter++ } 
-                    else if (x < clickwheelx || y < clickwheely) { movupcounter++ }
-                } else {
-                    // right bottom
-                    if (x < clickwheelx || y > clickwheely) { movdncounter++ } 
-                    else if (x > clickwheelx || y < clickwheely) { movupcounter++ }
-                }
-
-            } else {
-                // left side
-                if (y < clickheight/2) {
-                    // left top
-                    if (x > clickwheelx || y < clickwheely) { movdncounter++ } 
-                    else if (x < clickwheelx || y > clickwheely) { movupcounter++ }
-                } else {
-                    // left bottom
-                    if (x < clickwheelx || y < clickwheely) { movdncounter++ } 
-                    else if (x > clickwheelx || y > clickwheely) { movupcounter++ }
-                }
-            }
-
-            clickwheelx = x
-            clickwheely = y
-            
-            if (movupcounter > 100 - clickwheelsens) {
-                movupcounter = 0
-                movdncounter = 0
-                menu_up()
-            } else if (movdncounter > 100 - clickwheelsens) {
-                movupcounter = 0
-                movdncounter = 0
-                menu_down()
-            }
-
+    while (node != null) {
+        if (node == clickwheel) {
+            return true;
         }
-    }
-
-    function clickwheel_check(target) {
-        let node = target.parentNode;
-
-        while (node != null) {
-            if (node == clickwheel) {
-                return true;
-            }
         node = node.parentNode;
-        }
-        return false;
     }
+    return false;
+}
 
-    function clickwheel_mousebutton(event) {
-        // if (event.target == clickwheel) {
-            // console.log(event.target.parentNode)
-        if (event.type == 'touchstart') {event.preventDefault();}
-        if (event.target == clickwheel || clickwheel_check(event.target)) {
-            if (event.type == 'mousedown' || event.type == 'touchstart') { 
-                clickwheelheld = true 
-            }
-        } 
-        if (event.target == clickbutton) { if (event.type == 'mousedown' || event.type == 'touchstart') { document.querySelector(':root').style.setProperty('--cbcolour', 'rgb(240, 240, 240)'); button_handler('clickbutton')} } 
-        if (event.type == 'mouseup' || event.type == 'touchend') { 
-            clickwheelheld = false
-            document.querySelector(':root').style.setProperty('--cbcolour', 'rgb(255, 255, 255)');
+function clickwheel_mousebutton(event) {
+    if (event.type == 'touchstart') {
+        event.preventDefault();
+    }
+    if (event.target == clickwheel || clickwheel_check(event.target)) {
+        if (event.type == 'mousedown' || event.type == 'touchstart') {
+            clickwheelheld = true;
         }
     }
-    document.addEventListener('touchmove', function(event) {
-        event.preventDefault();
-    }, { passive: false });
+    if (event.target == clickbutton) {
+        if (event.type == 'mousedown' || event.type == 'touchstart') {
+            document.querySelector(':root').style.setProperty('--cbcolour', 'rgb(240, 240, 240)');
+            button_handler(event);
+        }
+    }
+    if (event.type == 'mouseup' || event.type == 'touchend') {
+        clickwheelheld = false;
+        document.querySelector(':root').style.setProperty('--cbcolour', 'rgb(255, 255, 255)');
+    }
+}
+document.addEventListener('touchmove', function(event) {
+    event.preventDefault();
+}, {
+    passive: false
+});
 
-    document.addEventListener('scroll', function(event) {
-        event.preventDefault();
-    }, { passive: false });
+document.addEventListener('scroll', function(event) {
+    event.preventDefault();
+}, {
+    passive: false
+});
 </script>
